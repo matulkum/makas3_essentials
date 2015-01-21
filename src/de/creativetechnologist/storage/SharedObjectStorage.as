@@ -1,7 +1,7 @@
 /**
  * Created by mak on 10.05.14.
  */
-package de.creativetechnolgist.storage {
+package de.creativetechnologist.storage {
 
 import flash.net.SharedObject;
 

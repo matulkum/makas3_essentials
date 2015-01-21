@@ -1,7 +1,7 @@
 /**
  * Created by mak on 12.06.14.
  */
-package de.creativetechnolgist.log {
+package de.creativetechnologist.log {
 import org.osflash.signals.Signal;
 
 public class Log {

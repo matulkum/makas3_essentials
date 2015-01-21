@@ -1,7 +1,7 @@
 /**
  * Created by mak on 18.06.14.
  */
-package de.creativetechnolgist.display {
+package de.creativetechnologist.display {
 import flash.desktop.Clipboard;
 import flash.desktop.ClipboardFormats;
 import flash.display.Bitmap;

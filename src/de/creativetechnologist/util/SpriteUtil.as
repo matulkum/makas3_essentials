@@ -1,4 +1,4 @@
-package de.creativetechnolgist.util {
+package de.creativetechnologist.util {
 import flash.display.Sprite;
 
 /**

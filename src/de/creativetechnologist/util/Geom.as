@@ -1,7 +1,7 @@
 /**
  * Created by mak on 25.08.14.
  */
-package de.creativetechnolgist.util {
+package de.creativetechnologist.util {
 import flash.geom.Point;
 
 public class Geom {
