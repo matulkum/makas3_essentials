@@ -15,7 +15,7 @@ public class Log {
 
 	public static const STACK_SIZE: int = 75;
 
-	public static var trace2Console: Boolean = false;
+	public static var traceLevel: int = -1;
 	public static var signal: Signal;
 
 	public function Log() {
@@ -48,8 +48,9 @@ public class Log {
 			if( stack.length > STACK_SIZE )
 				stack.shift();
 		}
-		if( trace2Console )
+		if( level <= traceLevel )
 			trace(message);
+
 		if( signal )
 			signal.dispatch(message);
 	}
