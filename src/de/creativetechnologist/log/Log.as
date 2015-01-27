@@ -16,7 +16,7 @@ public class Log {
 	public static const STACK_SIZE: int = 75;
 
 	public static var traceLevel: int = -1;
-	public static var signal: Signal;
+	private static var _signal: Signal;
 
 	public function Log() {
 	}
@@ -25,10 +25,12 @@ public class Log {
 	    stack = new <String>[];
 	}
 
-	public static function enableSignal(): void {
-		if ( signal ) return;
-		signal = new Signal(String);
+	public static function get signal(): Signal {
+		if( !_signal )
+			_signal = new Signal();
+		return _signal;
 	}
+
 
 
 	public static function msg(level: int, ...arguments): void {
@@ -87,6 +89,5 @@ public class Log {
 		}
 		return string;
 	}
-
 }
 }
