@@ -18,6 +18,7 @@ public class SecretGesture {
 
 	private var currentPhase: int = 0;
 	private var hitAreas: Vector.<Rectangle>;
+	private var hitAreasLength: uint;
 
 	private var timer: Timer;
 
@@ -27,7 +28,7 @@ public class SecretGesture {
 	/**
 	 *
 	 * @param stage "Classic flash" stage
-	 * @param args Strings with touch locations (eg "ne" for north east)
+	 * @param args Strings with touch locations (eg "ne" for north east or "" for center)
 	 */
 	public function SecretGesture(stage: Stage, ...args) {
 		if( args.length == 0) {
@@ -41,6 +42,8 @@ public class SecretGesture {
 		for (i = 0; i < length; i++) {
 			hitAreas.push(createRect(stage, args[i]));
 		}
+		hitAreasLength = hitAreas.length;
+
 		timer = new Timer(2000, 1);
 		timer.addEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete);
 		signalActivate = new Signal();
@@ -79,7 +82,7 @@ public class SecretGesture {
 
 
 	private function onStageClick(event: MouseEvent): void {
-		if( currentPhase >= hitAreas.length) {
+		if( currentPhase >= hitAreasLength) {
 			reset();
 			return;
 		}
