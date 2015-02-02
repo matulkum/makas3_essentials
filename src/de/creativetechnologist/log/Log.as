@@ -54,7 +54,7 @@ public class Log {
 			trace(message);
 
 		if( signal )
-			signal.dispatch(message);
+			signal.dispatch(message, level);
 	}
 
 
