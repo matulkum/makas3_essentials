@@ -53,8 +53,8 @@ public class Log {
 		if( level <= traceLevel )
 			trace(message);
 
-		if( signal )
-			signal.dispatch(message, level);
+		if( _signal )
+			_signal.dispatch(message, level);
 	}
 
 
