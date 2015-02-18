@@ -7,6 +7,7 @@ package de.creativetechnologist.ui {
 import de.creativetechnologist.log.Log;
 
 import flash.display.Stage;
+import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.events.TimerEvent;
 import flash.geom.Rectangle;
@@ -16,8 +17,10 @@ import org.osflash.signals.Signal;
 
 public class SecretGesture {
 
-	private var currentPhase: int = 0;
+	private var stage: Stage;
+	private var locations: Array;
 	private var hitAreas: Vector.<Rectangle>;
+	private var currentPhase: int = 0;
 	private var hitAreasLength: uint;
 
 	private var timer: Timer;
@@ -36,18 +39,34 @@ public class SecretGesture {
 			return;
 		}
 
-		hitAreas = new <Rectangle>[];
-		var i: int;
-		var length: int = args.length;
-		for (i = 0; i < length; i++) {
-			hitAreas.push(createRect(stage, args[i]));
-		}
-		hitAreasLength = hitAreas.length;
+		this.stage = stage;
+		this.locations = args;
+
+		createHitAreas();
 
 		timer = new Timer(2000, 1);
 		timer.addEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete);
 		signalActivate = new Signal();
 		stage.addEventListener(MouseEvent.CLICK, onStageClick);
+		stage.addEventListener(Event.RESIZE, onStageResize);
+	}
+
+
+	public function reset(): void {
+		currentPhase = 0;
+		timer.stop();
+		timer.reset();
+	}
+
+
+	private function createHitAreas(): void {
+		hitAreas = new <Rectangle>[];
+		var i: int;
+		var length: int = locations.length;
+		for (i = 0; i < length; i++) {
+			hitAreas.push(createRect(this.stage, locations[i]));
+		}
+		hitAreasLength = hitAreas.length;
 	}
 
 
@@ -74,13 +93,6 @@ public class SecretGesture {
 	}
 
 
-	public function reset(): void {
-		currentPhase = 0;
-		timer.stop();
-		timer.reset();
-	}
-
-
 	private function onStageClick(event: MouseEvent): void {
 		if( currentPhase >= hitAreasLength) {
 			reset();
@@ -101,6 +113,11 @@ public class SecretGesture {
 		else {
 			reset();
 		}
+	}
+
+
+	private function onStageResize(event: Event): void {
+		createHitAreas();
 	}
 
 
