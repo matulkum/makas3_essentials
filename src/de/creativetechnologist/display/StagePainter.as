@@ -47,8 +47,9 @@ public class StagePainter {
 	}
 
 
-	public static function enablePasteBitmapFromClipboard(stage: Stage): void {
-		stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyEventForPasteBitmap);
+	public static function enablePasteBitmapFromClipboard(): void {
+		if( stage )
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyEventForPasteBitmap);
 	}
 
 
