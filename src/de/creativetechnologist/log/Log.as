@@ -25,6 +25,7 @@ public class Log {
 	    stack = new <String>[];
 	}
 
+	// (message: String, level: int)
 	public static function get signal(): Signal {
 		if( !_signal )
 			_signal = new Signal();
