@@ -23,11 +23,9 @@ public class LocalNetStream extends NetStream {
 		addEventListener(NetStatusEvent.NET_STATUS, onNetStatusEvent);
 	}
 
-	private function onNetStatusEvent(event: NetStatusEvent): void {
+	protected function onNetStatusEvent(event: NetStatusEvent): void {
 		trace('onNetStatusEvent:', event.type, event.info.code);
-		if (event.info.code == "NetStream.Play.Stop") {
-		}
-		else if (event.info.code == "NetStream.Buffer.Flush")  {
+		if (event.info.code == "NetStream.Buffer.Flush")  {
 			if( loop ) {
 				seek(0);
 //				play();
