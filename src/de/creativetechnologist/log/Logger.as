@@ -13,7 +13,7 @@ public class Logger {
 	public static const INFO: int = 2;
 	public static const DEBUG: int = 3;
 
-	public const STACK_SIZE: int = 75;
+	public const STACK_SIZE: int = 50;
 
 	public var traceLevel: int = -1;
 
