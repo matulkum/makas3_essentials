@@ -9,7 +9,7 @@ import flash.net.NetStream;
 
 public class LocalNetStream extends NetStream {
 
-	public var loop: Boolean = true;
+	public var loop: Boolean = false;
 	private var _nc: NetConnection;
 
 	public function get netConnection(): NetConnection {return _nc;}
@@ -25,9 +25,9 @@ public class LocalNetStream extends NetStream {
 
 	protected function onNetStatusEvent(event: NetStatusEvent): void {
 		trace('onNetStatusEvent:', event.type, event.info.code);
-		if (event.info.code == "NetStream.Buffer.Flush")  {
+		if (event.info.code == "NetStream.Play.Stop")  {
 			if( loop ) {
-				seek(0);
+//				seek(0);
 //				play();
 			}
 		}

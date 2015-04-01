@@ -69,8 +69,8 @@ public class StagePainter {
 					pastedBitmap.parent.setChildIndex(pastedBitmap, pastedBitmap.parent.numChildren-1);
 				}
 				pastedBitmap.bitmapData = Clipboard.generalClipboard.getData(ClipboardFormats.BITMAP_FORMAT) as BitmapData;
-				pastedBitmap.width = stage.stageWidth;
-				pastedBitmap.height = stage.stageHeight;
+				pastedBitmap.width = stage.width;
+				pastedBitmap.height = stage.height;
 			}
 			return;
 		}
