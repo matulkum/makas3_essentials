@@ -2,13 +2,13 @@
  * Created by mak on 11.04.15.
  */
 package de.creativetechnologist.display {
-import bb.signals.BBSignal;
-
 import flash.display.Stage;
 import flash.events.LocationChangeEvent;
 import flash.filesystem.File;
 import flash.geom.Rectangle;
 import flash.media.StageWebView;
+
+import org.osflash.signals.Signal;
 
 public class StageWebViewController {
 
@@ -18,12 +18,12 @@ public class StageWebViewController {
 	private var _swv: StageWebView;
 	private var viewport: Rectangle;
 
-	private var _signalReceivedJSON: BBSignal;
+	private var _signalReceivedJSON: Signal;
 
 
 
 
-	public function get signalReceivedJSON(): BBSignal {return _signalReceivedJSON;}
+	public function get signalReceivedJSON(): Signal {return _signalReceivedJSON;}
 
 
 
@@ -133,10 +133,10 @@ public class StageWebViewController {
 	}
 
 
-	public function listenForJSON(): BBSignal {
+	public function listenForJSON(): Signal {
 		_swv.addEventListener(LocationChangeEvent.LOCATION_CHANGING, onListenForJSONLocationChange);
 		if( !_signalReceivedJSON)
-			_signalReceivedJSON = BBSignal.get(this);
+			_signalReceivedJSON = new Signal();
 		return _signalReceivedJSON;
 	}
 

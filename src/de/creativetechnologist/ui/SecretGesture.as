@@ -4,8 +4,6 @@
 package de.creativetechnologist.ui {
 
 
-import de.creativetechnologist.log.Log;
-
 import flash.display.Stage;
 import flash.events.Event;
 import flash.events.MouseEvent;
@@ -105,7 +103,6 @@ public class SecretGesture {
 			currentPhase++;
 			if( currentPhase == hitAreas.length ) {
 				currentPhase = 0;
-				Log.debug('SecretGesture activate');
 				signalActivate.dispatch(this);
 				reset();
 			}
