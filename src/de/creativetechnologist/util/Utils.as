@@ -8,12 +8,15 @@ public class Utils {
 
 
 	public static function normalizeIndexToLength(index: int, length: int): int {
+		var result: int;
 		if( index < length && index >= 0)
-			return index;
-		if( index < 0)
-			return (length-1) + ((index+1) % length);
+			result =  index;
+		else if( index < 0)
+			result = (length-1) + ((index+1) % length);
+		else
+			result = index % length;
 
-		return index % length;
+		return result;
 	}
 }
 }
