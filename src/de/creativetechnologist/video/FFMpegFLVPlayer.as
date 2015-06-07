@@ -2,12 +2,10 @@
  * Created by mak on 27/05/15.
  */
 package de.creativetechnologist.video {
-import com.furusystems.dconsole2.plugins.BytearrayHexdumpUtil;
+
 
 import flash.desktop.NativeProcess;
 import flash.desktop.NativeProcessStartupInfo;
-import flash.display.Stage;
-import flash.events.Event;
 import flash.events.IOErrorEvent;
 import flash.events.NativeProcessExitEvent;
 import flash.events.NetStatusEvent;
@@ -33,6 +31,9 @@ public class FFMpegFLVPlayer{
 	private var _stream: NetStream;
 	public function get stream(): NetStream {return _stream;}
 
+	// for everything else than samsung s6 try a very very low buffer time value
+	private const bufferTime: Number = .5;
+
 	private var nativeProcessParams: NativeProcessStartupInfo;
 	private var nativeProcess: NativeProcess;
 
@@ -54,9 +55,10 @@ public class FFMpegFLVPlayer{
 		netConnection = new NetConnection();
 		netConnection.connect(null);
 		_stream = new NetStream(netConnection);
-		_stream.bufferTime = 0.001;
-		_stream.backBufferTime = 0.001;
-		_stream.bufferTimeMax = 0.001;
+
+		_stream.bufferTime = bufferTime;
+		_stream.backBufferTime = bufferTime;
+		_stream.bufferTimeMax = bufferTime;
 		_stream.client = this;
 		_stream.addEventListener(NetStatusEvent.NET_STATUS, onNetStatusEvent);
 		_stream.addEventListener(StatusEvent.STATUS, onNetStreamStatus);
@@ -104,7 +106,7 @@ public class FFMpegFLVPlayer{
 		disposeNativeProcess();
 
 		try {
-//			_stream.close();
+			_stream.close();
 		} catch(e: Error){ /* doesn't matter */}
 
 	}
@@ -163,11 +165,12 @@ public class FFMpegFLVPlayer{
 		nativeProcess.standardOutput.readBytes(buffer, 0, nativeProcess.standardOutput.bytesAvailable);
 //		trace( 'FFMpegFLVPlayer -> onNativeProcessOutputData: ', buffer.length );
 
-		if( _stream.info.videoBufferLength > .08 ) {
+		if( _stream.info.videoBufferLength > bufferTime ) {
 //			trace(_stream.info.videoBufferLength, 'seeking!');
 			_stream.appendBytesAction(NetStreamAppendBytesAction.RESET_SEEK);
 //			counter++;
 		}
+
 		_stream.appendBytes(buffer);
 
 		return;
